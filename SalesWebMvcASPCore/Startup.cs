@@ -37,7 +37,7 @@ namespace SalesWebMvcASPCore
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<SalesWebMvcASPCoreContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("SalesWebMvcASPCoreContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("SalesWebMvcASPCoreContext"), builder => builder.MigrationsAssembly("SalesWebMvcASPCore")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
