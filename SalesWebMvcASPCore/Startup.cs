@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvcASPCore.Data;
 using System.IO;
+using SalesWebMvcASPCore.Services;
 
 namespace SalesWebMvcASPCore
 {
@@ -41,6 +42,7 @@ namespace SalesWebMvcASPCore
                     options.UseSqlServer(Configuration.GetConnectionString("SalesWebMvcASPCoreContext"), builder => builder.MigrationsAssembly("SalesWebMvcASPCore")));
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
