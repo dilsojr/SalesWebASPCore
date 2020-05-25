@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalesWebMvcASPCore.Data;
+using SalesWebMvcASPCore.Models.Enum;
 
 namespace SalesWebMvcASPCore.Migrations
 {
@@ -44,13 +45,11 @@ namespace SalesWebMvcASPCore.Migrations
 
                     b.Property<int?>("SellerId");
 
-                    b.Property<int?>("StatusId");
+                    b.Property<int?>("Status");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SellerId");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("SalesRecords");
                 });
@@ -84,9 +83,6 @@ namespace SalesWebMvcASPCore.Migrations
                         .WithMany("Sales")
                         .HasForeignKey("SellerId");
 
-                    b.HasOne("SalesWebMvcASPCore.Models.SalesRecord", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
                 });
 
             modelBuilder.Entity("SalesWebMvcASPCore.Models.Seller", b =>

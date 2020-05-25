@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SalesWebMvcASPCore.Models.Enum;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalesWebMvcASPCore.Models
 {
@@ -7,16 +9,15 @@ namespace SalesWebMvcASPCore.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public double Amount { get; set; }
-        public SalesRecord Status { get; set; }
+        public SalesStatus Status { get; set; }
         public Seller Seller { get; set; }
 
         public SalesRecord()
         { 
         }
 
-        public SalesRecord(int id, DateTime date, double amount, SalesRecord status, Seller seller)
+        public SalesRecord(DateTime date, double amount, SalesStatus status, Seller seller)
         {
-            Id = id;
             Date = date;
             Amount = amount;
             Status = status;

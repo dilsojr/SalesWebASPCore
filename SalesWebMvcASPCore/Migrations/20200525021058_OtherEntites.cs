@@ -39,7 +39,7 @@ namespace SalesWebMvcASPCore.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Date = table.Column<DateTime>(nullable: false),
                     Amount = table.Column<double>(nullable: false),
-                    StatusId = table.Column<int>(nullable: true),
+                    Status = table.Column<int>(nullable: true),
                     SellerId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -51,23 +51,13 @@ namespace SalesWebMvcASPCore.Migrations
                         principalTable: "Sellers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SalesRecords_SalesRecords_StatusId",
-                        column: x => x.StatusId,
-                        principalTable: "SalesRecords",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                   
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_SalesRecords_SellerId",
                 table: "SalesRecords",
                 column: "SellerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SalesRecords_StatusId",
-                table: "SalesRecords",
-                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sellers_DepartmentId",
