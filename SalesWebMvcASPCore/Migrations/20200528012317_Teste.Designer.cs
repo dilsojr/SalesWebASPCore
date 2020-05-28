@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalesWebMvcASPCore.Data;
 
 namespace SalesWebMvcASPCore.Migrations
 {
     [DbContext(typeof(SalesWebMvcASPCoreContext))]
-    partial class SalesWebMvcASPCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20200528012317_Teste")]
+    partial class Teste
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
