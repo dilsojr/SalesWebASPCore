@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesWebMvcASPCore.Data;
 using SalesWebMvcASPCore.Models;
+using SalesWebMvcASPCore.Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace SalesWebMvcASPCore.Services
@@ -38,6 +40,22 @@ namespace SalesWebMvcASPCore.Services
             var obj = _context.Sellers.Find(id);
             _context.Sellers.Remove(obj);
             _context.SaveChanges();
+        }
+
+        public void Update(Seller obj)
+        {
+            if (!_context.Sellers.Any(x => x.Id == obj.Id))
+                throw new NotFoundException("Id not found");
+
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }
