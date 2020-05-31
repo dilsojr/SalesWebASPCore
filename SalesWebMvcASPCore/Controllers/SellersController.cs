@@ -49,7 +49,6 @@ namespace SalesWebMvcASPCore.Controllers
                 return NotFound();
 
             var obj = _sellerService.FindByID(id.Value);
-            //var viewModel = new SellerformViewModel { Seller = obj };
             if (obj == null)
                 return NotFound();
 
@@ -57,10 +56,24 @@ namespace SalesWebMvcASPCore.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
             _sellerService.Remove(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var obj = _sellerService.FindByID(id.Value);
+            if (obj == null)
+                return NotFound();
+
+            return View(obj);
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SalesWebMvcASPCore.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SalesWebMvcASPCore.Data;
 using SalesWebMvcASPCore.Models;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace SalesWebMvcASPCore.Services
 
         public Seller FindByID(int id)
         {
-            return _context.Sellers.FirstOrDefault(obj => obj.Id == id);
+            return _context.Sellers.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)
