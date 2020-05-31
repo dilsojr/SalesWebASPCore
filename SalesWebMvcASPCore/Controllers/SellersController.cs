@@ -30,7 +30,7 @@ namespace SalesWebMvcASPCore.Controllers
         public IActionResult Create()
         {
             var department = _departmentService.FindAll();
-            var viewModel = new SellerformViewModel { Departments = department};
+            var viewModel = new SellerformViewModel { Departments = department };
             return View(viewModel);
         }
 
@@ -39,6 +39,27 @@ namespace SalesWebMvcASPCore.Controllers
         public IActionResult Create(Seller seller)
         {
             _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var obj = _sellerService.FindByID(id.Value);
+            //var viewModel = new SellerformViewModel { Seller = obj };
+            if (obj == null)
+                return NotFound();
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            _sellerService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
     }
