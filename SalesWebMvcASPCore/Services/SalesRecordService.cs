@@ -20,18 +20,37 @@ namespace SalesWebMvcASPCore.Services
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? dateMin, DateTime? dateMax)
         {
             var result = from obj in _context.SalesRecords select obj;
-            if(dateMin.HasValue)
+            if (dateMin.HasValue)
             {
                 result = result.Where(x => x.Date >= dateMin.Value);
             }
-            if(dateMax.HasValue)
+            if (dateMax.HasValue)
             {
                 result = result.Where(x => x.Date <= dateMax.Value);
             }
             return await result
-                .Include(x=> x.Seller)
-                .Include(x=> x.Seller.Department)
-                .OrderByDescending(x=> x.Date)
+                .Include(x => x.Seller)
+                .Include(x => x.Seller.Department)
+                .OrderByDescending(x => x.Date)
+                .ToListAsync();
+        }
+
+        public async Task<List<IGrouping<Department,SalesRecord>>>FindByDateGroupingAsync(DateTime? dateMin, DateTime? dateMax)
+        {
+            var result = from obj in _context.SalesRecords select obj;
+            if (dateMin.HasValue)
+            {
+                result = result.Where(x => x.Date >= dateMin.Value);
+            }
+            if (dateMax.HasValue)
+            {
+                result = result.Where(x => x.Date <= dateMax.Value);
+            }
+            return await result
+                .Include(x => x.Seller)
+                .Include(x => x.Seller.Department)
+                .OrderByDescending(x => x.Date)
+                .GroupBy(x => x.Seller.Department)
                 .ToListAsync();
         }
 
